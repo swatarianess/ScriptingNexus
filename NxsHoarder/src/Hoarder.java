@@ -143,7 +143,7 @@ public class Hoarder extends PollingScript<ClientContext> implements BotMenuList
         if (ctx.skills.level(Constants.SKILLS_COOKING) >= 10) {
             modules.addAll(Arrays.asList(
             new WalkToFallyBank(ctx),
-            new BankWithdrawFlourPots(ctx),
+            new BankWithdrawFlourPotsFalador(ctx),
             new WalkToFountain(ctx),
             new MakePastry(ctx),
             new BankDeposit(ctx)

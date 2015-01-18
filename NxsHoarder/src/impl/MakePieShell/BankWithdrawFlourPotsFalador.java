@@ -16,9 +16,9 @@ import org.powerbot.script.rt6.Component;
  * Project: Scripting Nexus
  */
 @ModuleInfo(name = "BankWithdrawFlourPots")
-public class BankWithdrawFlourPots extends Module<ClientContext> {
+public class BankWithdrawFlourPotsFalador extends Module<ClientContext> {
 
-    public BankWithdrawFlourPots(ClientContext ctx) {
+    public BankWithdrawFlourPotsFalador(ClientContext ctx) {
         super(ctx);
     }
 
