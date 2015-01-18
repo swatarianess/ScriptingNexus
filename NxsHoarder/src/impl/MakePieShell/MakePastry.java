@@ -46,10 +46,12 @@ public class MakePastry extends Module<ClientContext> {
         Component pastryDough = ctx.widgets.component(1371,44).component(5);
         Component mix = ctx.widgets.component(1370, 38);
 
-   /*     if(pastryDough.textureId() != 15201) {
+        //Makes sure that pastry dough is highlighted, if not it clicks it
+        if(pastryDough.textureId() != 15201) {
             ctx.widgets.component(1371, 44).component(4).click();
         }
-  */
+
+
         Condition.sleep(Random.nextInt(300,600));
         ctx.input.send("{VK_SPACE}");
 

@@ -20,7 +20,7 @@ public class BankDeposit extends Module<ClientContext> {
 
 
     /**
-     * Activate: What will activate this Module?
+     * Activate: What will activate this Module.?
      */
     @Override
     public boolean activate() {

@@ -38,7 +38,7 @@ public class TeleportToPortSarimToBuy extends Module<ClientContext> {
      */
     @Override
     public void execute() {
-        Loadstones.PORT_SARIM.teleport(ctx,true);
+        Loadstones.PORT_SARIM.teleport(ctx);
         System.out.println("Teleporting To Port Sharim");
     }
 

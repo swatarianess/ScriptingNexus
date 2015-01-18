@@ -6,6 +6,7 @@ import curtains.Resources.Areas;
 import curtains.Resources.ItemIds;
 import curtains.Resources.Loadstones;
 import curtains.Resources.Vars;
+import org.powerbot.script.Random;
 import org.powerbot.script.rt6.ClientContext;
 
 /**
@@ -39,8 +40,14 @@ public class TeleportToBurthorpeToBank extends Module<ClientContext> {
      */
     @Override
     public void execute() {
+        int randomNumber = Random.nextInt(1,10);
         System.out.println("Teleporting to Burthorpe...");
-        Loadstones.BURTHORPE.teleport(ctx,true);
+        if(randomNumber > 5) {
+            Loadstones.BURTHORPE.teleport(ctx);
+        } else{
+            Loadstones.BURTHORPE.teleport(ctx,true);
+        }
+
     }
 
 }

@@ -48,36 +48,43 @@ public class MoveToWydinShop extends Module<ClientContext> {
         System.out.println("Moving To Wydin's Shop");
 
         Npc wydin = ctx.npcs.select().id(NpcIds.WYDIN).poll();
+        GameObject door = ctx.objects.select().id(40108).nearest().poll();
 
-        if (ctx.movement.reachable(ctx.players.local().tile(), wydin.tile())) {
-            ctx.movement.step(wydin);
-            ctx.camera.angle(90 + Random.nextInt(-5, 5));
-            wydin.interact(false, "Trade", "Wydin");
+        if (!ctx.movement.reachable(ctx.players.local().tile(), wydin.tile())
+                && Vars.DOORSTEP.compareTo(door.tile()) == 0) {
+            door.interact(false, "Open", "Door");
             Condition.wait(new Callable<Boolean>() {
-
+                @Override
                 public Boolean call() throws Exception {
-                    return ctx.widgets.component(1265, 5).visible();
+                    return ctx.players.local().animation() == 0;
                 }
-            }, 100, 20);
+            },500,50);
         } else {
+            if(Vars.DOORSTEP.compareTo(door.tile()) != 0){
+                ctx.camera.turnTo(wydin.tile());
+                ctx.camera.pitch(Random.nextInt(27, 43));
+                wydin.interact(false, "Trade", "Wydin");
+                Condition.wait(new Callable<Boolean>() {
 
+                    public Boolean call() throws Exception {
+                        return ctx.widgets.component(1265, 5).visible();
+                    }
+                }, 100, 20);
+            }
+
+        }
+
+        /* else {
             Condition.wait(new Callable<Boolean>() {
 
                 public Boolean call() throws Exception {
                     return ctx.players.local().animation() == -1;
                 }
             }, 200, 50);
-
             ctx.movement.step(Vars.DOORSTEP);
-
-//			Helps with opening the door.
-            ctx.camera.angle(90 + Random.nextInt(-5, 5));
-            GameObject door = ctx.objects.select().id(40108).nearest().poll();
-            if (!ctx.movement.reachable(ctx.players.local().tile(), wydin.tile())
-                    && Vars.DOORSTEP.compareTo(door.tile()) == 0) {
-                door.interact(false, "Open", "Door");
-            }
         }
-    }
+        */
+
+        }
 
 }
