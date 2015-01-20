@@ -50,17 +50,17 @@ public class MoveToRamseyShop extends Module<ClientContext> {
 
         Npc ramsey = ctx.npcs.select().id(NpcIds.RAMSEY).poll();
         ctx.camera.turnTo(ramsey.tile());
-        ctx.camera.pitch(Random.nextInt(28,70));
+        ctx.camera.pitch(Random.nextInt(20,33));
 
         if (ctx.movement.reachable(ctx.players.local().tile(), ramsey.tile())) {
-            ctx.movement.step(ramsey);
+            ctx.camera.turnTo(ramsey.tile());
+            ctx.camera.pitch(Random.nextInt(20,33));
             ramsey.interact(false, "Trade", "Mess Sergeant Ramsey");
             Condition.wait(new Callable<Boolean>() {
-
                 public Boolean call() throws Exception {
                     return ctx.widgets.component(1265, 5).visible();
                 }
-            }, 250, 20);
+            }, 100, 50);
         } else {
             ctx.movement.step(Vars.SHOP_ENTRANCE);
         }

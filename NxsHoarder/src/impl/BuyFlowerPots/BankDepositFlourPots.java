@@ -40,7 +40,8 @@ public class BankDepositFlourPots extends Module<ClientContext> {
         if(ctx.backpack.select().id(ItemIds.POT_OF_FLOUR).count() > 0){
             ctx.bank.depositInventory();
         } else{
-            ctx.bank.close();
+            //ctx.bank.close();
+            ctx.input.send("{VK_ESCAPE}");
         }
     }
 

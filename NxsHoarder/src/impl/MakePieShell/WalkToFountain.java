@@ -24,6 +24,8 @@ public class WalkToFountain extends Module<ClientContext> {
     public WalkToFountain(ClientContext ctx) {
         super(ctx);
     }
+    final GameObject Waterpump = ctx.objects.select().id(11661).poll();
+
 
 
     /**
@@ -32,13 +34,15 @@ public class WalkToFountain extends Module<ClientContext> {
     @Override
     public boolean activate() {
         //When will this activate?
-        Component mixingWindow = ctx.widgets.component(1371,0);
-        Component mixingProgress = ctx.widgets.component(1251,0).component(0);
+        Component mixingWindow = ctx.widgets.component(1371, 0);
+        Component mixingProgress = ctx.widgets.component(1251, 0).component(0);
+
 
         return Areas.FALADOR.contains(ctx.players.local().tile())
                 && ctx.players.local().animation() == -1
-                && ctx.backpack.select().count() != 28
+                && ctx.backpack.select().count() == 14
                 && ctx.backpack.id(ItemIds.POT_OF_FLOUR).count() > 0
+                && Waterpump.tile().distanceTo(ctx.players.local().tile()) > 7
                 && !mixingWindow.visible()
                 && !mixingProgress.visible();
 
@@ -52,47 +56,48 @@ public class WalkToFountain extends Module<ClientContext> {
     public void execute() {
         //Walking to Fountain
 
-        final GameObject Waterpump = ctx.objects.select().id(11661).poll();
         Item potOfFlour = ctx.backpack.id(ItemIds.POT_OF_FLOUR).shuffle().poll();
 
         if(!Waterpump.inViewport()){
             ctx.camera.turnTo(Waterpump);
             ctx.camera.pitch(Random.nextInt(30, 55));
         }
-        ctx.movement.step(Waterpump.tile().derive(-1,1));
-        Condition.sleep(3000);
+
+        ctx.movement.step(Waterpump.tile().derive(-1, 1));
         Condition.wait(new Callable<Boolean>() {
             @Override
             public Boolean call() throws Exception {
-                return ctx.players.local().animation() == -1;
+                return ctx.players.local().inMotion();
             }
-        },1000,100);
+        },200,30);
 
         potOfFlour.interact("Use");
-
-        //If the mixing window is not already pen
+        Condition.sleep(Random.nextInt(2000,3500));
+        //If the mixing window is not already open
 
        // if(!ctx.objects.select().name("Waterpump").within(6.0).isEmpty()){
         while(!ctx.widgets.component(1371,0).visible()) {
-            if (Waterpump.inViewport()) {
-                Waterpump.interact(false, "Use", "Waterpump");
-                Condition.sleep(2000);
+            if (!ctx.players.local().inMotion()) {
+                if (Waterpump.inViewport()) {
+                    Waterpump.interact(false, "Use", "Waterpump");
+                    Condition.sleep(Random.nextInt(2500, 4000));
+                    break;
+                } else {
+                    ctx.camera.turnTo(Waterpump.tile());
+                    //  ctx.movement.step(Waterpump.tile());
+                    Waterpump.interact(false, "Use", "Waterpump");
+                    Condition.sleep(Random.nextInt(2500, 4000));
+                    break;
+                }
             } else {
-                ctx.camera.turnTo(Waterpump.tile());
-                //  ctx.movement.step(Waterpump.tile());
-                Waterpump.interact(false, "Use", "Waterpump");
-                Condition.sleep(2000);
+                Condition.wait(new Callable<Boolean>() {
+                    @Override
+                    public Boolean call() throws Exception {
+                        return !ctx.players.local().inMotion();
+                    }
+                }, 150, 40);
             }
         }
-            Condition.wait(new Callable<Boolean>() {
-                @Override
-                public Boolean call() throws Exception {
-                    return ctx.widgets.component(1371,0).visible();
-                }
-            },100,40);
-      //  }
-        System.out.println("Walked to waterpump");
-
     }
 
 }

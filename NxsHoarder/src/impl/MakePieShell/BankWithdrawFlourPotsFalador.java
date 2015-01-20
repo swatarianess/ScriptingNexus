@@ -5,8 +5,6 @@ import curtains.Modules.ModuleInfo;
 import curtains.Resources.Areas;
 import curtains.Resources.ItemIds;
 import curtains.Resources.Vars;
-import org.powerbot.script.Condition;
-import org.powerbot.script.Random;
 import org.powerbot.script.rt6.ClientContext;
 import org.powerbot.script.rt6.Component;
 
@@ -49,11 +47,9 @@ public class BankWithdrawFlourPotsFalador extends Module<ClientContext> {
             //Not Found
             ctx.controller.stop();
         }else{
-          //  ctx.bank.withdraw(ItemIds.POT_OF_FLOUR,14);
             bankQuickLoad.click();
             Vars.POT_OF_FLOUR_IN_BANK_AMOUNT = ctx.bank.itemAt(index).stackSize();
         }
-        Condition.sleep(Random.getDelay());
     }
 
 }

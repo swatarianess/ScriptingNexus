@@ -52,24 +52,27 @@ public class MoveToWydinShop extends Module<ClientContext> {
 
         if (!ctx.movement.reachable(ctx.players.local().tile(), wydin.tile())
                 && Vars.DOORSTEP.compareTo(door.tile()) == 0) {
+            ctx.camera.turnTo(door.tile());
             door.interact(false, "Open", "Door");
             Condition.wait(new Callable<Boolean>() {
                 @Override
                 public Boolean call() throws Exception {
-                    return ctx.players.local().animation() == 0;
+                    return ctx.players.local().animation() == -1;
                 }
-            },500,50);
+            },500,25);
         } else {
+
             if(Vars.DOORSTEP.compareTo(door.tile()) != 0){
                 ctx.camera.turnTo(wydin.tile());
                 ctx.camera.pitch(Random.nextInt(27, 43));
                 wydin.interact(false, "Trade", "Wydin");
+                Condition.sleep(500);
+                ctx.camera.turnTo(wydin.tile());
                 Condition.wait(new Callable<Boolean>() {
-
                     public Boolean call() throws Exception {
                         return ctx.widgets.component(1265, 5).visible();
                     }
-                }, 100, 20);
+                }, 200, 50);
             }
 
         }
@@ -85,6 +88,6 @@ public class MoveToWydinShop extends Module<ClientContext> {
         }
         */
 
-        }
+    }
 
 }

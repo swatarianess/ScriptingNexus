@@ -32,8 +32,8 @@ public class MakePastry extends Module<ClientContext> {
     public boolean activate() {
         //When will this activate?
         return Areas.FALADOR.contains(ctx.players.local().tile())
-                || ctx.widgets.component(1371,0).visible()
-                || !ctx.objects.select().name("Waterpump").within(6.0).isEmpty();
+                && ctx.widgets.component(1371,0).visible()
+                && !ctx.objects.select().name("Waterpump").within(6.0).isEmpty();
     }
 
 
@@ -51,10 +51,7 @@ public class MakePastry extends Module<ClientContext> {
             ctx.widgets.component(1371, 44).component(4).click();
         }
 
-
-        Condition.sleep(Random.nextInt(300,600));
         ctx.input.send("{VK_SPACE}");
-
         ctx.backpack.select().id(ItemIds.PASTRY_DOUGH);
         int doughCountBefore = ctx.backpack.count();
 
@@ -64,7 +61,7 @@ public class MakePastry extends Module<ClientContext> {
                     System.out.println("Within Loop...");
                     return !ctx.widgets.component(1251, 0).component(0).visible();
                 }
-            }, 200, 10);
+            }, 1000, 19);
 
             ctx.backpack.select().id(ItemIds.PASTRY_DOUGH);
             Vars.PASTRY_DOUGH_MIXED += ctx.backpack.count() - doughCountBefore;

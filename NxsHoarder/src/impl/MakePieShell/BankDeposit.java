@@ -7,7 +7,7 @@ import curtains.Resources.ItemIds;
 import org.powerbot.script.rt6.ClientContext;
 
 /**
- * Created by Swatarianess on 14/01/2015.
+ * Created by Swataria`ness on 14/01/2015.
  * Package: impl.MakePieShell
  * Project: Scripting Nexus
  */

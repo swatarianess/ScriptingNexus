@@ -2,9 +2,10 @@ import curtains.Logger;
 import curtains.Modules.Module;
 import curtains.Resources.Vars;
 import curtains.Utils.Painter;
-import impl.BuyFlowerPots.*;
+import impl.MakePieShell.*;
 import org.powerbot.script.*;
 import org.powerbot.script.rt6.ClientContext;
+import org.powerbot.script.rt6.Constants;
 
 import javax.swing.*;
 import javax.swing.event.MenuEvent;
@@ -124,7 +125,7 @@ public class Hoarder extends PollingScript<ClientContext> implements BotMenuList
 
     private void startupModules()
     {
-    // /*
+     /*
        modules.addAll(Arrays.asList(
                new MoveToBurthorpeBank(ctx),
                new BankDepositFlourPots(ctx),
@@ -137,9 +138,9 @@ public class Hoarder extends PollingScript<ClientContext> implements BotMenuList
                new BuyFlourPotsFromRamsey(ctx),
                new MoveToRamseyShop(ctx),
                new TeleportToTaverlyToBuy(ctx)));
-     // */
+      */
 
-       /*
+
         if (ctx.skills.level(Constants.SKILLS_COOKING) >= 10) {
             modules.addAll(Arrays.asList(
             new WalkToFallyBank(ctx),
@@ -149,7 +150,7 @@ public class Hoarder extends PollingScript<ClientContext> implements BotMenuList
             new BankDeposit(ctx)
             ));
         }
-        */
+
             System.out.println("Modules setup.");
     }
 
@@ -212,25 +213,25 @@ public class Hoarder extends PollingScript<ClientContext> implements BotMenuList
             potsETC = Vars.POTS_OF_FLOUR_SHOP_COUNT / potsPerMinute;
         }
 
-
+        /*
             painter.properties(
                     Objective.value("~Buying Flour Pots~"),
                     time.value("Runtime: " + painter.formatTime(runtime)),
                     items.value("Flour Pots bought: " + Vars.POTS_OF_FLOUR_PURCHASED),
                     itemsPerHour.value("FlourPots/hr: " + itemsPerHourVar)
             ).draw(graphics);
+        */
 
-
-       // if (Vars.PASTRY_DOUGH_MIXED > 0) {
-     /*       painter.properties(
+        //if (Vars.PASTRY_DOUGH_MIXED > 0) {
+            painter.properties(
                     Objective.value("~Making Dough~"),
                     time.value("Runtime: " + painter.formatTime(runtime)),
-                    doughMade.value("Dough: " + Vars.PASTRY_DOUGH_MIXED + "/" + Vars.POT_OF_FLOUR_IN_BANK_AMOUNT),
+                    doughMade.value("Mixed: " + Vars.PASTRY_DOUGH_MIXED + " || left: " + Vars.POT_OF_FLOUR_IN_BANK_AMOUNT),
                     pastryph.value("Dough/hr: " + doughPerHour),
                     profitHr.value("Profit/hr: " + doughProfitPerHour + "k"),
                     eta.value("ETA: " + doughETC + " mins")
             ).draw(graphics);
       //  }
-      */
+
     }
 }

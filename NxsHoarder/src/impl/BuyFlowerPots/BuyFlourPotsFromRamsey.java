@@ -85,9 +85,12 @@ public class BuyFlourPotsFromRamsey extends Module<ClientContext> {
             //Used for ETC
             Vars.POTS_OF_FLOUR_SHOP_COUNT = potsOfFlour.itemStackSize();
         }
-
-        Component exit = ctx.widgets.component(1265, 88);
-        exit.click();
+        //Press escape key :)
+        ctx.input.send("{VK_ESCAPE}");
+       // Component exit = ctx.widgets.component(1265, 88);
+       // exit.click();
+        ctx.camera.angleTo(Random.nextInt(10,30));
+        ctx.camera.angleTo(ctx.camera.yaw() + Random.nextInt(30,150));
     }
 
 }

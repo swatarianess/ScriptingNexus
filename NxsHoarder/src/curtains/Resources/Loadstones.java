@@ -93,7 +93,7 @@ public enum Loadstones {
                         public Boolean call() throws Exception {
                             return teleporting(ctx);
                         }
-                    }, 100, 25);
+                    }, 150, 50);
                 } else {
                     wrongDest = true;
                 }
@@ -140,40 +140,14 @@ public enum Loadstones {
     }
     public static class Timer{
 
-        private long end;
         private final long start;
         private final long period;
+        private long end;
 
         public Timer(final long period) {
             this.period = period;
             start = System.currentTimeMillis();
             end = start + period;
-        }
-
-        public long getElapsed() {
-            return System.currentTimeMillis() - start;
-        }
-
-        public long getRemaining() {
-            if (isRunning()) {
-                return end - System.currentTimeMillis();
-            }
-            return 0;
-        }
-
-
-        public boolean isRunning() {
-            return System.currentTimeMillis() < end;
-        }
-
-
-        public void reset() {
-            end = System.currentTimeMillis() + period;
-        }
-
-        public long setEndIn(final long ms) {
-            end = System.currentTimeMillis() + ms;
-            return end;
         }
 
         public static String format(final long time) {
@@ -199,6 +173,30 @@ public enum Loadstones {
             }
             t.append(secs);
             return t.toString();
+        }
+
+        public long getElapsed() {
+            return System.currentTimeMillis() - start;
+        }
+
+        public long getRemaining() {
+            if (isRunning()) {
+                return end - System.currentTimeMillis();
+            }
+            return 0;
+        }
+
+        public boolean isRunning() {
+            return System.currentTimeMillis() < end;
+        }
+
+        public void reset() {
+            end = System.currentTimeMillis() + period;
+        }
+
+        public long setEndIn(final long ms) {
+            end = System.currentTimeMillis() + ms;
+            return end;
         }
 
     }

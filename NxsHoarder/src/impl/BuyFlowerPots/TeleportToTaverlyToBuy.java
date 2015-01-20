@@ -36,8 +36,8 @@ public class TeleportToTaverlyToBuy extends Module<ClientContext> {
      */
     @Override
     public void execute() {
-        System.out.println("Teleporting To Taverly");
         Loadstones.TAVERLEY.teleport(ctx,true);
+        System.out.println("Teleporting To Taverly");
     }
 
 }
