@@ -29,6 +29,8 @@ public final class Areas {
             new Tile(2951, 3355)
     );
 
+    public static final Area FALADOR_CITY = new Area();
+
     private Areas() {
 
     }
